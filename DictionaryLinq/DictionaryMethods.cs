@@ -58,6 +58,9 @@ namespace Cureos.Linq
         /// changed to <see cref="Dictionary{TKey,TValue}"/> this method will instead be "hidden" by the general
         /// <see cref="Enumerable.Where{TSource}(System.Collections.Generic.IEnumerable{TSource},System.Func{TSource,bool})"/> 
         /// method which returns a generic <see cref="IEnumerable{T}"/> of <see cref="KeyValuePair{TKey,TValue}"/>.
+        /// An alternative would be to implement explicit instances of the Where method for all classes implementing
+        /// the <see cref="IDictionary{TKey,TValue}"/> interface. Within the portable library only <see cref="Dictionary{TKey,TValue}"/>
+        /// implements this interface.
         /// </remarks>
         public static TDict
             Where<TDict, TKey, TValue>(this TDict source, Func<KeyValuePair<TKey, TValue>, bool> predicate) where TDict : IDictionary<TKey, TValue>, new()
@@ -79,6 +82,16 @@ namespace Cureos.Linq
             return Enumerable.Where(source, predicate).ToDictionary(kv => kv.Key, kv => kv.Value);
         }
 
+        /// <summary>
+        /// Produces the set difference of two sequences by using the default equality comparer to compare values.
+        /// </summary>
+        /// <typeparam name="TDict">Dictionary type.</typeparam>
+        /// <typeparam name="TKey">The type of keys in the collection.</typeparam>
+        /// <typeparam name="TValue">The type of values in the collection.</typeparam>
+        /// <param name="first">An <see cref="IEnumerable{T}"/> whose elements that are not also in second will be returned.</param>
+        /// <param name="second">An <see cref="IEnumerable{T}"/> whose elements that also occur in the first sequence will cause those elements to be removed from the returned sequence.</param>
+        /// <returns>A dictionary that contains the set difference of the elements of two sequences.</returns>
+        /// <remarks>The equality comparer applied is the default <see cref="TKey"/> equality comparer.</remarks>
         public static TDict
             Except<TDict, TKey, TValue>(this TDict first, IDictionary<TKey, TValue> second) where TDict : IDictionary<TKey, TValue>, new()
         {
@@ -86,6 +99,15 @@ namespace Cureos.Linq
                 Enumerable.Except(first, second, KeyValuePairKeyEqualityComparer<TKey, TValue>.Default));
         }
 
+        /// <summary>
+        /// Produces the set difference of two sequences by using the default equality comparer to compare values.
+        /// </summary>
+        /// <typeparam name="TKey">The type of keys in the collection.</typeparam>
+        /// <typeparam name="TValue">The type of values in the collection.</typeparam>
+        /// <param name="first">An <see cref="IEnumerable{T}"/> whose elements that are not also in second will be returned.</param>
+        /// <param name="second">An <see cref="IEnumerable{T}"/> whose elements that also occur in the first sequence will cause those elements to be removed from the returned sequence.</param>
+        /// <returns>A dictionary that contains the set difference of the elements of two sequences.</returns>
+        /// <remarks>The equality comparer applied is the default <see cref="TKey"/> equality comparer.</remarks>
         public static Dictionary<TKey, TValue>
             Except<TKey, TValue>(this Dictionary<TKey, TValue> first, IDictionary<TKey, TValue> second)
         {
@@ -153,7 +175,7 @@ namespace Cureos.Linq
         }
 
         public static TDict
-            Union<TDict, TKey, TValue>(this IDictionary<TKey, TValue> first, IDictionary<TKey, TValue> second,
+            Union<TDict, TKey, TValue>(this TDict first, IDictionary<TKey, TValue> second,
                                  IEqualityComparer<KeyValuePair<TKey, TValue>> comparer) where TDict : IDictionary<TKey, TValue>, new()
         {
             return ToTDict<TDict, TKey, TValue>(Enumerable.Union(first, second, comparer));
