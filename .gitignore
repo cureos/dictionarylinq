@@ -1,0 +1,9 @@
+
+*.crunchproject.local.xml
+*.crunchsolution.local.xml
+*.suo
+/DictionaryLinq.Tests/bin/
+/DictionaryLinq.Tests/obj/
+/DictionaryLinq/bin/
+/DictionaryLinq/obj/
+/_ReSharper.DictionaryLinq/

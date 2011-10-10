@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DictionaryLinq.Tests", "DictionaryLinq.Tests\DictionaryLinq.Tests.csproj", "{1CF0B21E-0CC9-447B-9B98-ED7980DCA3A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DictionaryLinq", "DictionaryLinq\DictionaryLinq.csproj", "{E01166B3-5C8E-4F27-B132-4BEE03D9009D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1CF0B21E-0CC9-447B-9B98-ED7980DCA3A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CF0B21E-0CC9-447B-9B98-ED7980DCA3A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CF0B21E-0CC9-447B-9B98-ED7980DCA3A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CF0B21E-0CC9-447B-9B98-ED7980DCA3A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E01166B3-5C8E-4F27-B132-4BEE03D9009D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E01166B3-5C8E-4F27-B132-4BEE03D9009D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E01166B3-5C8E-4F27-B132-4BEE03D9009D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E01166B3-5C8E-4F27-B132-4BEE03D9009D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
