@@ -1,12 +1,14 @@
-﻿// Copyright (c) 2010-2011 Anders Gustafsson, Cureos AB.
-// All rights reserved. Any unauthorised reproduction of this 
-// material will constitute an infringement of copyright.
+﻿// Copyright (c) 2011 Anders Gustafsson, Cureos AB.
+// All rights reserved. This software and the accompanying materials
+// are made available under the terms of the Eclipse Public License v1.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v10.html
 
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace DictionaryLinq
+namespace Cureos.Linq
 {
     [TestFixture]
     public class ToDictionaryTests
@@ -24,15 +26,28 @@ namespace DictionaryLinq
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        public void ToDictionaryNoEqualityComparer_TwoKeysSameValuesDifferent_Throws()
+        public void ToDictionaryNoEqualityComparer_TwoKeysOnlyCaseDifferent_ReturnsDictionaryOfSourceLength()
         {
             var instance = new[]
                                {
                                    new KeyValuePair<string, int>("a", 1), new KeyValuePair<string, int>("b", 2),
-                                   new KeyValuePair<string, int>("a", 3)
+                                   new KeyValuePair<string, int>("A", 3)
                                };
-            instance.ToDictionary();
+            var expected = 3;
+            var actual = instance.ToDictionary().Count;
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ToDictionaryKeyEqualityComparer_CaseInsensitiveEqualityComparer_Throws()
+        {
+            var instance = new[]
+                               {
+                                   new KeyValuePair<string, int>("a", 1), new KeyValuePair<string, int>("b", 2),
+                                   new KeyValuePair<string, int>("A", 3)
+                               };
+            var actual = instance.ToDictionary(StringComparer.InvariantCultureIgnoreCase);
         }
 
         #endregion

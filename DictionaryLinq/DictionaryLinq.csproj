@@ -6,7 +6,7 @@
     <ProjectGuid>{E01166B3-5C8E-4F27-B132-4BEE03D9009D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DictionaryLinq</RootNamespace>
+    <RootNamespace>Cureos.Linq</RootNamespace>
     <AssemblyName>DictionaryLinq</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile2</TargetFrameworkProfile>
@@ -40,7 +40,7 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DictionaryLinqMethods.cs" />
+    <Compile Include="DictionaryMethods.cs" />
     <Compile Include="KeyValuePairKeyEqualityComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

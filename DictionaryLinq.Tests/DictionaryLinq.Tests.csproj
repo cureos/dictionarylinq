@@ -8,7 +8,7 @@
     <ProjectGuid>{1CF0B21E-0CC9-447B-9B98-ED7980DCA3A9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DictionaryLinq</RootNamespace>
+    <RootNamespace>Cureos.Linq</RootNamespace>
     <AssemblyName>DictionaryLinq.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExceptTests.cs" />
     <Compile Include="ToDictionaryTests.cs" />
     <Compile Include="WhereTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

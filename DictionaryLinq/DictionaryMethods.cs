@@ -1,14 +1,16 @@
-﻿// Copyright (c) 2010-2011 Anders Gustafsson, Cureos AB.
-// All rights reserved. Any unauthorised reproduction of this 
-// material will constitute an infringement of copyright.
+﻿// Copyright (c) 2011 Anders Gustafsson, Cureos AB.
+// All rights reserved. This software and the accompanying materials
+// are made available under the terms of the Eclipse Public License v1.0
+// which accompanies this distribution, and is available at
+// http://www.eclipse.org/legal/epl-v10.html
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DictionaryLinq
+namespace Cureos.Linq
 {
-    public static class DictionaryLinqMethods
+    public static class DictionaryMethods
     {
         public static Dictionary<TKey, TValue>
             ToDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> source)
@@ -21,13 +23,6 @@ namespace DictionaryLinq
                                        IEqualityComparer<TKey> comparer)
         {
             return source.ToDictionary(kv => kv.Key, kv => kv.Value, comparer);
-        }
-
-        public static Dictionary<TKey, TValue>
-            ToDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> source,
-                                       IEqualityComparer<KeyValuePair<TKey, TValue>> comparer)
-        {
-            return source.Distinct(comparer).ToDictionary(kv => kv.Key, kv => kv.Value);
         }
 
         public static Dictionary<TKey, TValue>
