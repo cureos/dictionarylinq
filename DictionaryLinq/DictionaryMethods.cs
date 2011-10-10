@@ -25,10 +25,48 @@ namespace Cureos.Linq
             return source.ToDictionary(kv => kv.Key, kv => kv.Value, comparer);
         }
 
+        /// <summary>
+        /// Filters a sequence of values based on a predicate.
+        /// </summary>
+        /// <typeparam name="TDict">Dictionary type.</typeparam>
+        /// <typeparam name="TKey">The type of keys in the collection.</typeparam>
+        /// <typeparam name="TValue">The type of values in the collection.</typeparam>
+        /// <param name="source">A dictionary of key-value pairs to filter.</param>
+        /// <param name="predicate">A function to test each element for a condition.</param>
+        /// <returns>A dictionary that contains elements from the input sequence that satisfy the condition.</returns>
+        /// <remarks>
+        /// In its present form, this method is "hidden" by the <see cref="Where{TKey,TValue}"/> method unless 
+        /// the types are explicitly inferred. The reason for this is to ensure that at least some kind of <see cref="Dictionary{TKey,TValue}"/>
+        /// is returned. If the type of the first argument in <see cref="Where{TKey,TValue}"/> is 
+        /// changed to <see cref="Dictionary{TKey,TValue}"/> this method will instead be "hidden" by the general
+        /// <see cref="Enumerable.Where{TSource}(System.Collections.Generic.IEnumerable{TSource},System.Func{TSource,bool})"/> 
+        /// method which returns a generic <see cref="IEnumerable{T}"/> of <see cref="KeyValuePair{TKey,TValue}"/>.
+        /// </remarks>
+        public static TDict
+            Where<TDict, TKey, TValue>(this TDict source, Func<KeyValuePair<TKey, TValue>, bool> predicate) where TDict : IDictionary<TKey, TValue>, new()
+        {
+            return ToTDict<TDict, TKey, TValue>(Enumerable.Where(source, predicate));
+        }
+
+        /// <summary>
+        /// Filters a sequence of values based on a predicate.
+        /// </summary>
+        /// <typeparam name="TKey">The type of keys in the collection.</typeparam>
+        /// <typeparam name="TValue">The type of values in the collection.</typeparam>
+        /// <param name="source">A dictionary of key-value pairs to filter.</param>
+        /// <param name="predicate">A function to test each element for a condition.</param>
+        /// <returns>A dictionary that contains elements from the input sequence that satisfy the condition.</returns>
         public static Dictionary<TKey, TValue>
             Where<TKey, TValue>(this IDictionary<TKey, TValue> source, Func<KeyValuePair<TKey, TValue>, bool> predicate)
         {
             return Enumerable.Where(source, predicate).ToDictionary(kv => kv.Key, kv => kv.Value);
+        }
+
+        public static TDict
+            Except<TDict, TKey, TValue>(this TDict first, IDictionary<TKey, TValue> second) where TDict : IDictionary<TKey, TValue>, new()
+        {
+            return ToTDict<TDict, TKey, TValue>(
+                Enumerable.Except(first, second, KeyValuePairKeyEqualityComparer<TKey, TValue>.Default));
         }
 
         public static Dictionary<TKey, TValue>
@@ -40,44 +78,72 @@ namespace Cureos.Linq
         }
 
         public static TDict
-            Except<TDict, TKey, TValue>(this TDict first, IDictionary<TKey, TValue> second) where TDict : IDictionary<TKey, TValue>, new()
+            Except<TDict, TKey, TValue>(this TDict first, IDictionary<TKey, TValue> second,
+                                 IEqualityComparer<KeyValuePair<TKey, TValue>> comparer) where TDict : IDictionary<TKey, TValue>, new()
         {
-            return ToTDict<TDict, TKey, TValue>(
-                Enumerable.Except(first, second, KeyValuePairKeyEqualityComparer<TKey, TValue>.Default));
+            return ToTDict<TDict, TKey, TValue>(Enumerable.Except(first, second, comparer));
         }
 
         public static Dictionary<TKey, TValue>
-            Except<TKey, TValue>(this IDictionary<TKey, TValue> first, IDictionary<TKey, TValue> second,
+            Except<TKey, TValue>(this Dictionary<TKey, TValue> first, IDictionary<TKey, TValue> second,
                                  IEqualityComparer<KeyValuePair<TKey, TValue>> comparer)
         {
             return Enumerable.Except(first, second, comparer).ToDictionary(kv => kv.Key, kv => kv.Value);
         }
 
+        public static TDict
+            Intersect<TDict, TKey, TValue>(this TDict first, IDictionary<TKey, TValue> second) where TDict : IDictionary<TKey, TValue>, new()
+        {
+            return ToTDict<TDict, TKey, TValue>(
+                Enumerable.Intersect(first, second, KeyValuePairKeyEqualityComparer<TKey, TValue>.Default));
+        }
+
         public static Dictionary<TKey, TValue>
-            Intersect<TKey, TValue>(this IDictionary<TKey, TValue> first, IDictionary<TKey, TValue> second)
+            Intersect<TKey, TValue>(this Dictionary<TKey, TValue> first, IDictionary<TKey, TValue> second)
         {
             return
                 Enumerable.Intersect(first, second, KeyValuePairKeyEqualityComparer<TKey, TValue>.Default).ToDictionary(
                     kv => kv.Key, kv => kv.Value);
         }
 
+        public static TDict
+            Intersect<TDict, TKey, TValue>(this TDict first, IDictionary<TKey, TValue> second,
+                                 IEqualityComparer<KeyValuePair<TKey, TValue>> comparer) where TDict : IDictionary<TKey, TValue>, new()
+        {
+            return ToTDict<TDict, TKey, TValue>(Enumerable.Intersect(first, second, comparer));
+        }
+
         public static Dictionary<TKey, TValue>
-            Intersect<TKey, TValue>(this IDictionary<TKey, TValue> first, IDictionary<TKey, TValue> second,
+            Intersect<TKey, TValue>(this Dictionary<TKey, TValue> first, IDictionary<TKey, TValue> second,
                                  IEqualityComparer<KeyValuePair<TKey, TValue>> comparer)
         {
             return Enumerable.Intersect(first, second, comparer).ToDictionary(kv => kv.Key, kv => kv.Value);
         }
 
+        public static TDict
+            Union<TDict, TKey, TValue>(this TDict first, IDictionary<TKey, TValue> second) where TDict : IDictionary<TKey, TValue>, new()
+        {
+            return ToTDict<TDict, TKey, TValue>(
+                Enumerable.Union(first, second, KeyValuePairKeyEqualityComparer<TKey, TValue>.Default));
+        }
+
         public static Dictionary<TKey, TValue>
-            Union<TKey, TValue>(this IDictionary<TKey, TValue> first, IDictionary<TKey, TValue> second)
+            Union<TKey, TValue>(this Dictionary<TKey, TValue> first, IDictionary<TKey, TValue> second)
         {
             return
                 Enumerable.Union(first, second, KeyValuePairKeyEqualityComparer<TKey, TValue>.Default).ToDictionary(
                     kv => kv.Key, kv => kv.Value);
         }
 
+        public static TDict
+            Union<TDict, TKey, TValue>(this IDictionary<TKey, TValue> first, IDictionary<TKey, TValue> second,
+                                 IEqualityComparer<KeyValuePair<TKey, TValue>> comparer) where TDict : IDictionary<TKey, TValue>, new()
+        {
+            return ToTDict<TDict, TKey, TValue>(Enumerable.Union(first, second, comparer));
+        }
+
         public static Dictionary<TKey, TValue>
-            Union<TKey, TValue>(this IDictionary<TKey, TValue> first, IDictionary<TKey, TValue> second,
+            Union<TKey, TValue>(this Dictionary<TKey, TValue> first, IDictionary<TKey, TValue> second,
                                  IEqualityComparer<KeyValuePair<TKey, TValue>> comparer)
         {
             return Enumerable.Union(first, second, comparer).ToDictionary(kv => kv.Key, kv => kv.Value);

@@ -25,6 +25,15 @@ namespace Cureos.Linq
         }
 
         [Test]
+        public void Where_OnSortedDictionary_ReturnsDictionary()
+        {
+            var instance = new SortedDictionary<int, int> { { 1, 1 }, { 2, 1 }, { 3, 2 }, { 4, 3 }, { 5, 5 }, { 6, 8 }, { 7, 13 } };
+
+            var actual = instance.Where(kv => kv.Value > 3);
+            Assert.IsInstanceOf<Dictionary<int, int>>(actual);
+        }
+
+        [Test]
         public void Where_OnDictionary_ContainsKeyValuePairFromSourceDict()
         {
             var instance = new Dictionary<int, int> { { 1, 1 }, { 2, 1 }, { 3, 2 }, { 4, 3 }, { 5, 5 }, { 6, 8 }, { 7, 13 } };
