@@ -5,6 +5,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DictionaryLinq.Tests", "Dic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DictionaryLinq", "DictionaryLinq\DictionaryLinq.csproj", "{E01166B3-5C8E-4F27-B132-4BEE03D9009D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A301EA41-115C-4B0E-AA04-41DC10E2423F}"
+	ProjectSection(SolutionItems) = preProject
+		COPYING.htm = COPYING.htm
+		README.rdoc = README.rdoc
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

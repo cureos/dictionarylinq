@@ -1,0 +1,20 @@
+= dictionarylinq - LINQ method overloads for dictionary classes
+
+Copyright (c) 2011 Anders Gustafsson, Cureos AB  
+
+Licensed and distributable under the terms of the EPL 1.0 license: http://opensource.org/licenses/EPL-1.0
+
+
+== Summary
+
+DictionaryLinq is a portable (.NET 4, Silverlight 4, Windows Phone 7) C# class library providing convenience methods for LINQ operations on dictionary classes.
+
+When applying certain default LINQ methods on a Dictionary class, the return value is of type IEnumerable{KeyValuePair{TKey, TValue}} although the most intuitive return value would have been Dictionary{TKey, TValue}.
+
+DictionaryLinq provides a solution to this dilemma by "overriding" some of the default LINQ methods, automatically returning a Dictionary.
+
+
+== Links
+
+* Upcoming blog post on Radiotherapy.NET http://cureos.blogspot.com
+

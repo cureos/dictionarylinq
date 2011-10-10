@@ -12,12 +12,29 @@ namespace Cureos.Linq
 {
     public static class DictionaryMethods
     {
+        /// <summary>
+        /// Creates a <see cref="Dictionary{TKey,TValue}"/> from an <see cref="IEnumerable{T}"/> consisting of
+        /// elements of type <see cref="KeyValuePair{TKey,TValue}"/>.
+        /// </summary>
+        /// <typeparam name="TKey">The type of keys in the collection.</typeparam>
+        /// <typeparam name="TValue">The type of values in the collection.</typeparam>
+        /// <param name="source">An enumerable of key-value pairs to create the dictionary from.</param>
+        /// <returns>A <see cref="Dictionary{TKey,TValue}"/> directly constructed from the enumerable of key-value pairs.</returns>
         public static Dictionary<TKey, TValue>
             ToDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> source)
         {
             return source.ToDictionary(kv => kv.Key, kv => kv.Value);
         }
 
+        /// <summary>
+        /// Creates a <see cref="Dictionary{TKey,TValue}"/> from an <see cref="IEnumerable{T}"/> consisting of
+        /// elements of type <see cref="KeyValuePair{TKey,TValue}"/>.
+        /// </summary>
+        /// <typeparam name="TKey">The type of keys in the collection.</typeparam>
+        /// <typeparam name="TValue">The type of values in the collection.</typeparam>
+        /// <param name="source">An enumerable of key-value pairs to create the dictionary from.</param>
+        /// <param name="comparer">An <see cref="IEqualityComparer{T}"/> to compare keys.</param>
+        /// <returns>A <see cref="Dictionary{TKey,TValue}"/> directly constructed from the collection of key-value pairs.</returns>
         public static Dictionary<TKey, TValue>
             ToDictionary<TKey, TValue>(this IEnumerable<KeyValuePair<TKey, TValue>> source,
                                        IEqualityComparer<TKey> comparer)
