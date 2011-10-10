@@ -32,11 +32,18 @@ namespace Cureos.Linq
         }
 
         public static Dictionary<TKey, TValue>
-            Except<TKey, TValue>(this IDictionary<TKey, TValue> first, IDictionary<TKey, TValue> second)
+            Except<TKey, TValue>(this Dictionary<TKey, TValue> first, IDictionary<TKey, TValue> second)
         {
             return
                 Enumerable.Except(first, second, KeyValuePairKeyEqualityComparer<TKey, TValue>.Default).ToDictionary(
                     kv => kv.Key, kv => kv.Value);
+        }
+
+        public static TDict
+            Except<TDict, TKey, TValue>(this TDict first, IDictionary<TKey, TValue> second) where TDict : IDictionary<TKey, TValue>, new()
+        {
+            return ToTDict<TDict, TKey, TValue>(
+                Enumerable.Except(first, second, KeyValuePairKeyEqualityComparer<TKey, TValue>.Default));
         }
 
         public static Dictionary<TKey, TValue>
@@ -88,6 +95,13 @@ namespace Cureos.Linq
                                           Func<TSource, int, KeyValuePair<TKey, TValue>> selector)
         {
             return Enumerable.Select(source, selector).ToDictionary(kv => kv.Key, kv => kv.Value);
+        }
+
+        private static TDict ToTDict<TDict, TKey, TValue>(IEnumerable<KeyValuePair<TKey, TValue>> source) where TDict : IDictionary<TKey, TValue>, new()
+        {
+            var dict = new TDict();
+            foreach (var kv in source) dict.Add(kv);
+            return dict;
         }
     }
 }
