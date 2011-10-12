@@ -7,3 +7,6 @@
 /DictionaryLinq/bin/
 /DictionaryLinq/obj/
 /_ReSharper.DictionaryLinq/
+*.dotCover
+*.user
+*.cache

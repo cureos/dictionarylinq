@@ -16,5 +16,5 @@ DictionaryLinq provides a solution to this dilemma by "overriding" some of the d
 
 == Links
 
-* Upcoming blog post on Radiotherapy.NET http://cureos.blogspot.com
+* Blog post on Radiotherapy.NET http://cureos.blogspot.com/2011/10/linq-and-dictionaries.html
 
